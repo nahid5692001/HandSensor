@@ -1,0 +1,2 @@
+@ECHO OFF
+"C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\avrasm2.exe" -S "Z:\2011junior\ece375_lab\lab7_bballDisplay\labels.tmp" -fI -W+ie -o "Z:\2011junior\ece375_lab\lab7_bballDisplay\lab7_bballDisplay.hex" -d "Z:\2011junior\ece375_lab\lab7_bballDisplay\lab7_bballDisplay.obj" -e "Z:\2011junior\ece375_lab\lab7_bballDisplay\lab7_bballDisplay.eep" -m "Z:\2011junior\ece375_lab\lab7_bballDisplay\lab7_bballDisplay.map" "Z:\2011junior\ece375_lab\lab7_bballDisplay\lab7_bballDisplay_src.asm"
