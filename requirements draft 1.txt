@@ -1,0 +1,26 @@
+ENGINEERING
+1.wireless xmission to computer
+2.run on 4.5v battery power
+3.incorporate 3 axis sensing
+4.incorporate at least 4 button inputs
+5.incorporate 1 calibration button(<1s startup time)
+6.update xyz position at rate of at least 500 per min
+7.pressure sensitive buttons
+8.documentation for operation/instillation
+9.xyz adjustable sensitivity
+10.sense glove rotation(pitch, yaw, roll)
+11.sense tap and double tap gestures
+12.accurate position tracking (<3cm error)
+
+
+
+CUSTOMER
+1.comfortable
+2.GUI interface for programming input
+3.visually appealing
+4.durable construction
+5.easy to use (plug and play)
+6.right and left handed
+7.inexpensive (<$200)
+8.safe to use
+9.compact- sensor hardware fits on back of hand

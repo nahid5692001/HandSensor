@@ -1,0 +1,46 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.17</VERSION>
+ <DEVICE>ATmega128</DEVICE>
+ <WORKING_DIR>Z:\2011junior\ece375_lab\lab6</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>Z:\2011junior\ece375_lab\lab6\lab6.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Z:\2011junior\ece375_lab\lab6\lab6.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Z:\2011junior\ece375_lab\lab6\lab6.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INIT><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>83</LINE></INIT>
+  <HitRight><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>309</LINE></HitRight>
+  <HitLeft><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>337</LINE></HitLeft>
+  <Receive><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>155</LINE></Receive>
+  <MAIN><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>145</LINE></MAIN>
+  <RCV_CMD><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>166</LINE></RCV_CMD>
+  <IDTrue><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>181</LINE></IDTrue>
+  <FROZEN><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>249</LINE></FROZEN>
+  <RCV_COMPLETE><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>186</LINE></RCV_COMPLETE>
+  <FRZ><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>178</LINE></FRZ>
+  <CLR_ID><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>173</LINE></CLR_ID>
+  <Tag><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>231</LINE></Tag>
+  <Transfering><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>237</LINE></Transfering>
+  <Dead><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>263</LINE></Dead>
+  <wait><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>365</LINE></wait>
+  <goForward><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>268</LINE></goForward>
+  <goBack><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>274</LINE></goBack>
+  <goLeft><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>280</LINE></goLeft>
+  <goRight><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>286</LINE></goRight>
+  <stop><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>291</LINE></stop>
+  <Loop><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>367</LINE></Loop>
+  <OLoop><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>370</LINE></OLoop>
+  <ILoop><FILE>Z:\2011junior\ece375_lab\lab6\lab6_recieve.asm</FILE><LINE>373</LINE></ILoop>
+ </LABELS>
+</ASSEMBLER_INFO>

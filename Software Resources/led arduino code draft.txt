@@ -1,0 +1,43 @@
+cont int shiftRegisterData = 11;
+const int shiftRegisterClock = 12;
+const int shiftRegisterLatch = 8;
+
+char inputString[2];
+
+void setup() 
+{
+	pinMode(shiftRegisterData, OUTPUT);
+	pinMode(shiftRegisterClock, OUTPUT);
+	pinMode(shiftRegisterLatch, OUTPUT);
+	Serial.begin(9600);
+	Serial.println("reset");
+}
+
+
+void shiftRegisterUpdate()
+//CYCLES THROUGH EACH AVAILABLE LEDS IN REVERSE ORDER, SETTING DATA AND //CLOCK PINS TO UPDATE OUTPUT LEDS, ENDS BY SETTING LATCH HIGH
+
+{
+digitalWrite(shiftRegisterLatch,LOW);				//HOLD OUTPUT WHILE SHIFTING
+	for(int thisLED=2;thisLED>0;thisLED--)			//CYCLE THROUGH EACH LED
+	{
+		if(state(thisLED))							//IF THE LED HAS BEEN SET TO BE ON
+		{
+			digitalWrite(shiftRegisterData,HIGH);	//SET LED ON
+			digitalWrite(shiftRegisterClock,HIGH);	//SHIFT IN PREVIOUS DATA LINE
+		}
+		else
+		{
+			digitalWrite(shiftRegisterData,LOW);	//SET LED OFF
+			digitalWrite(shiftRegisterClock,HIGH);	//SHIFT IN PREVIOUS DATA LINE
+		}
+	}
+digitalWrite(shiftRegisterLatch,HIGH);				//SEND FULL SHIFT REGISTER VALUES TO OUTPUT
+}
+
+int state(int whichLED)
+{
+	//CHECKS LED STATE whichLED ACCORDING TO TOUCH SENSOR AND DEVICE
+	//LEDS 1-4=TOUCHSENSORS, LEDS 5=POWER, LED 6=CALIBRATION
+return 0;
+}

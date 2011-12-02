@@ -1,0 +1,32 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.17</VERSION>
+ <DEVICE>ATmega128</DEVICE>
+ <WORKING_DIR>Z:\2011junior\ece375_lab\lab7_bballBackBoard</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_bballBackBoard.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_bballBackBoard.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_bballBackBoard.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INIT><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>70</LINE></INIT>
+  <MAIN><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>125</LINE></MAIN>
+  <Hit0><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>153</LINE></Hit0>
+  <Hit1><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>169</LINE></Hit1>
+  <Wait><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>186</LINE></Wait>
+  <ReadyCheck><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>145</LINE></ReadyCheck>
+  <Loop><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>191</LINE></Loop>
+  <OLoop><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>192</LINE></OLoop>
+  <ILoop><FILE>Z:\2011junior\ece375_lab\lab7_bballBackBoard\lab7_backboard_src.asm</FILE><LINE>193</LINE></ILoop>
+ </LABELS>
+</ASSEMBLER_INFO>

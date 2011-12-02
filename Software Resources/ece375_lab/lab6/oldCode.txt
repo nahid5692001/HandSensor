@@ -1,0 +1,336 @@
+;***********************************************************
+;*
+;*	Lab 6: Remote Operated Vehicle
+;*
+;*	Enter the description of the program here
+;*
+;*	This is the RECEIVE skeleton file for Lab 6 of ECE 375
+;*
+;***********************************************************
+;*
+;*	 Author: Anton Bilbaeno, Mushfiqur Sarker
+;*	 Date: 2/9/11
+;*
+;***********************************************************
+
+.include "m128def.inc"			; Include definition file
+
+;***********************************************************
+;*	Internal Register Definitions and Constants
+;***********************************************************
+.def	mpr = r16				; Multi-Purpose Register
+.def	waitcnt = r17
+.def 	ilcnt = r18
+.def	olcnt = r19
+.def	zero = r2				; Zero register, set to zero in INIT, useful for calculations
+
+.equ	WskrR = 4				; Right Whisker Input Bit
+.equ	WskrL = 5				; Left Whisker Input Bit
+.equ	EngEnR = 4				; Right Engine Enable Bit
+.equ	EngEnL = 7				; Left Engine Enable Bit
+.equ	EngDirR = 5				; Right Engine Direction Bit
+.equ	EngDirL = 6				; Left Engine Direction Bit
+.equ	WTime = 50				; Time to wait in wait loop
+
+.equ	BotID = 0b00000000;(Enter you group ID here (8bits)); Unique XD ID (MSB = 0)
+
+;/////////////////////////////////////////////////////////////
+;These macros are the values to make the TekBot Move.
+;/////////////////////////////////////////////////////////////
+
+.equ	MovFwd =  (1<<EngDirR|1<<EngDirL)	;0b01100000 Move Forwards Command
+.equ	MovBck =  $00						;0b00000000 Move Backwards Command
+.equ	TurnR =   (1<<EngDirL)				;0b01000000 Turn Right Command
+.equ	TurnL =   (1<<EngDirR)				;0b00100000 Turn Left Command
+.equ	Halt =    (1<<EngEnR|1<<EngEnL)		;0b10010000 Halt Command
+
+;***********************************************************
+;*	Start of Code Segment
+;***********************************************************
+.cseg							; Beginning of code segment
+
+;-----------------------------------------------------------
+; Interrupt Vectors
+;-----------------------------------------------------------
+.org	$0000					; Beginning of IVs
+		rjmp 	INIT			; Reset interrupt
+
+;Should have Interrupt vectors for:
+
+;- Right whisker
+.org	$0002
+		rcall		HitRight
+		reti
+
+;- Left whisker
+.org	$0004		
+		rcall		HitLeft
+		reti
+
+;- USART receive
+.org 	$003C
+		rcall		CheckID
+		reti
+
+.org	$0046		; End of Interrupt Vectors
+
+;-----------------------------------------------------------
+; Program Initialization
+;-----------------------------------------------------------
+INIT:
+	;Stack Pointer (VERY IMPORTANT!!!!)
+	ldi		mpr, HIGH(RAMEND)
+	out		SPH, mpr
+	ldi		mpr, LOW(RAMEND)
+	out		SPL, mpr
+
+	clr		zero
+
+	;I/O Ports
+	;	Initialize Port B for output
+	ldi 	mpr, (1<<EngEnL)|(1<<EngEnR)|(1<<EngDirR)|(1<<EngDirL)
+	out		DDRB, mpr
+	ldi		mpr, $00
+	out		PORTB, mpr
+
+	;Initialize Port D for WHISKER INPUT USE PORTS 4,5
+	ldi 	mpr, (0<<WskrL)|(0<<WskrR) ; set direction to output
+	out		DDRD, mpr
+	ldi		mpr, (1<<WskrL)|(1<<WskrR)
+	out		PORTD, mpr
+
+	; Initialize external interrupts
+	; Set the Interrupt Sense Control to Low Level
+	ldi		mpr, (0<<ISC11)|(0<<ISC10)|(0<<ISC01)|(0<<ISC00)
+	sts 	EICRA, mpr
+	ldi		mpr, $00
+	out		EICRB, mpr
+
+	; NOTE: must initialize both EICRA and EICRB
+
+	; Set the External Interrupt Mask
+	ldi		mpr, (1<<INT0)|(1<<INT1)
+	out		EIMSK, mpr
+
+	;USART1, Recieve
+USART_Init:
+	; Set baud rate at 2400bps
+	ldi mpr, $01		// $01A0 = 416 for U2X = 0
+	sts UBRR1H, mpr
+	ldi mpr, $A0
+	sts UBRR1L, mpr
+
+	;Enable receiver and enable receive interrupts
+	ldi mpr, (1<<RXEN1)
+	sts UCSR1B, mpr
+
+	;Set frame format: 2stop bit, 8data bits
+	ldi mpr, (2<<USBS1)|(3<<UCSZ10)
+	sts UCSR1C, mpr
+
+	ret
+
+	; Turn on interrupts
+	sei
+
+;-----------------------------------------------------------
+; Main Program
+;-----------------------------------------------------------
+MAIN:
+		// do nothing, we are just doing stuff when interrupted
+		
+
+
+
+
+		rjmp	MAIN
+
+;***********************************************************
+;*	Functions and Subroutines
+;***********************************************************
+HitRight:
+		; PUSH TO STACK
+		push 	mpr
+		push 	waitcnt
+		in		mpr, SREG
+		push 	mpr
+		cli
+
+		; Move backwards for a second
+		ldi		mpr, MovBck
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall 	Wait
+
+		; Turn left for a second
+		ldi		mpr, TurnL
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+
+		; POP OFF STACK
+		pop		mpr
+		out 	SREG, mpr
+		pop 	waitcnt
+		pop 	mpr
+		sei
+
+		ret
+
+HitLeft:
+		; PUSH TO STACK
+		push 	mpr
+		push 	waitcnt
+		in		mpr, SREG
+		push 	mpr
+		cli
+
+		; Move backwards for a second
+		ldi		mpr, MovBck
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall 	Wait
+
+		; Turn right for a second
+		ldi		mpr, TurnR
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+
+		; POP OFF STACK
+		pop		mpr
+		out 	SREG, mpr
+		pop 	waitcnt
+		pop 	mpr
+		sei
+		
+		ret
+
+Wait:  	// wait loop timer
+
+Loop:
+		ldi		r19, 224
+
+OLoop:
+		ldi		r18, 237
+
+ILoop:
+		dec		r18
+		brne 	ILoop
+		dec		r19
+		brne	OLoop
+		dec		waitcnt
+		brne	Loop
+
+		ret
+
+CheckID:
+
+		lds 	mpr, UCSR1A				; loads USART status register into mpr
+		sbrs	mpr, RXC1				; if RCX is set, there is unread data in the receive buffer
+										; sbrs = skip if bit in register is set
+		rjmp 	MAIN
+		lds		mpr, UDR1				; transmit/recieve I/O address is put in UDR
+		cpi		mpr, BotID				; compare UDR to BotID defined above
+		brne	MAIN					; if BotID != UDR, get out
+
+Check:
+		lds		mpr, UCSR1A				; loads USART status register into mpr
+		sbrs	mpr, RXC1				; if RCX is set, there is unread data in the receive buffer	
+		rjmp	Check					; if RCX set, skip this line
+		rcall	RecStart
+		rjmp	MAIN
+
+RecStart:	// forward
+		lds		mpr, UDR1				; load UDR into mpr
+		cpi		mpr, 0b10110000			; compare with code given for Forward
+		brne	Receive1;
+		rjmp	goForward;
+
+Receive1:	// backward
+		lds		mpr, UDR1				; load UDR into mpr
+		cpi		mpr, 0b10000000			; compare with code given for Backward
+		brne	Receive2;
+		rjmp	goBack;
+
+Receive2:	// turn right
+		lds		mpr, UDR1				; load UDR into mpr
+		cpi		mpr, 0b10100000			; compare with code given for Turn Right
+		brne	Receive3;
+		rjmp	goRight;
+
+Receive3:	// turn left
+		lds		mpr, UDR1				; load UDR into mpr
+		cpi		mpr, 0b10010000			; compare with code given for Turn Left
+		brne	Receive4;
+		rjmp	goLeft;
+
+Receive4:	// stop		
+		lds		mpr, UDR1				; load UDR into mpr
+		cpi		mpr, 0b11001000			; compare with code given for Stop
+		brne	Receive5;
+		rjmp	stop;
+
+Receive5:	// future use
+		lds		mpr, UDR1				; load UDR into mpr
+		cpi		mpr, 0b11111000			; compare with code given for Future Use
+		brne	EndRec
+		rjmp	future;
+
+EndRec:
+		ret
+
+future: 
+
+		ret
+
+goForward:
+		; Move forward for a second
+		ldi		mpr, MovFwd				
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+		ret
+
+goBack:
+		; Move back for a second
+		ldi		mpr, MovBck				
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+		ret
+
+goLeft:
+		; turn left for a second
+		ldi		mpr, TurnL				
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+		ret
+
+goRight:
+		; turn right for a second
+		ldi		mpr, TurnR				
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+		ret
+
+stop:
+		; stop for a second
+		ldi		mpr, Halt				
+		out		PORTB, mpr
+		ldi		waitcnt, WTime
+		rcall	Wait
+		ret
+
+;***********************************************************
+;*	Stored Program Data
+;***********************************************************
+
+
+
+;***********************************************************
+;*	Additional Program Includes
+;***********************************************************
+
